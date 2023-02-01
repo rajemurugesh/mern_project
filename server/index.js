@@ -2,6 +2,7 @@
 const express = require("express");
 const  mongoose =require('mongoose');
 const cors = require('cors');
+const path = require('path');
 
 const Clients = require('./model/Clients.js');
 
@@ -12,6 +13,13 @@ const port = process.env.PORT || 5000;
 
 app.use(express.json())
 app.use(cors())
+
+//static files
+app.use(express.static(path.join(__dirname, './client/build')))
+
+app.get('*', function(req, res){
+    res.sendFile(path.join(__dirname, './client/build/index.html'))
+})
 
 //db connection
 mongoose.connect("mongodb://localhost:27017/myMern", {
