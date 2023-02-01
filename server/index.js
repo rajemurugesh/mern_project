@@ -3,11 +3,12 @@ const express = require("express");
 const  mongoose =require('mongoose');
 const cors = require('cors');
 const path = require('path');
+require('dotenv').config()
 
 const Clients = require('./model/Clients.js');
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 
 //middlewares
 
@@ -22,7 +23,7 @@ app.get('*', function(req, res){
 })
 
 //db connection
-mongoose.connect("mongodb://localhost:27017/myMern", {
+mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(()=>{
